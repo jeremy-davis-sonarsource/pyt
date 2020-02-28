@@ -68,3 +68,8 @@ target/
 
 #IDE
 .idea/
+.vscode/
+
+#sonarqube
+.scannerwork
+analyse.sh
