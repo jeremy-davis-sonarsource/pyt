@@ -57,6 +57,10 @@ def handle_fdid_aliases(module_or_package_name, import_alias_mapping):
     return None
 
 
+def whoami(param):
+    return param
+
+
 def not_as_alias_handler(names_list):
     """Returns a list of names ignoring any aliases."""
     list_ = list()
