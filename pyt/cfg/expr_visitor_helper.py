@@ -2,7 +2,6 @@ from collections import namedtuple
 
 from ..core.node_types import ConnectToExitNode
 
-
 SavedVariable = namedtuple(
     'SavedVariable',
     (
@@ -37,6 +36,11 @@ MUTATORS = (  # list.append(x) taints list if x is tainted
     'extend',
     'insert',
     'update',
+)
+
+USELESS = (
+    '1',
+    '2'
 )
 
 
