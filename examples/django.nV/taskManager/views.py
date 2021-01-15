@@ -12,28 +12,26 @@
 # from django.nV for use in another web application!
 #
 
+import codecs
 import datetime
 import mimetypes
 import os
-import codecs
-
-from django.shortcuts import render, render_to_response, redirect
-from django.http import HttpResponse
-from django.utils import timezone
-from django.template import RequestContext
-from django.db import connection
-
-from django.views.decorators.csrf import csrf_exempt
 
 from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
-from django.contrib.auth.models import Group, User
 from django.contrib.auth import logout
+from django.contrib.auth.models import Group, User
+from django.db import connection
+from django.http import HttpResponse
+from django.shortcuts import redirect, render, render_to_response
+from django.template import RequestContext
+from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
 
-from taskManager.models import Task, Project, Notes, File, UserProfile
+from taskManager.forms import ProfileForm, ProjectFileForm, UserForm
 from taskManager.misc import store_uploaded_file
-from taskManager.forms import UserForm, ProjectFileForm, ProfileForm
+from taskManager.models import File, Notes, Project, Task, UserProfile
 
 
 def manage_tasks(request, project_id):
@@ -181,8 +179,8 @@ def upload(request, project_id):
             #A1 - Injection (SQLi)
             curs = connection.cursor()
             curs.execute(
-                "insert into taskManager_file ('name','path','project_id') values ('%s','%s',%s)" %
-                (name, upload_path, project_id))
+                "insert into taskManager_file ('name','path','project_id','inital_name') values ('%s','%s',%s,%s)" %
+                (name, upload_path, project_id,name))
 
             return redirect('/taskManager/' + project_id +
                             '/', {'new_file_added': True})
